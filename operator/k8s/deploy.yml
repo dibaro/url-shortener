@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shorturl-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shorturl-operator
+  template:
+    metadata:
+      labels:
+        app: shorturl-operator
+    spec:
+      serviceAccountName: shorturl-operator
+      containers:
+        - name: operator
+          image: dibaro/shorturl-operator:latest

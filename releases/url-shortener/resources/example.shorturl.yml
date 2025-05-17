@@ -1,0 +1,7 @@
+apiVersion: urlshortener.tapsi.ir/v1
+kind: ShortURL
+metadata:
+  name: <go-to-url>
+  namespace: <namespace>
+spec:
+  targetURL: "<target-url>"

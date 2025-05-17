@@ -1,0 +1,46 @@
+# Global settings
+nameOverride: ""
+fullnameOverride: ""
+
+# Operator settings
+operator:
+  image:
+    repository: dibaro/shorturl-operator
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi 
+
+# API settings
+api:
+  image:
+    repository: dibaro/shorturl-api
+    tag: latest
+    pullPolicy: Always
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 5000
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  ingress:
+    enabled: true
+    className: "nginx"
+    hosts:
+      - host: api.url-shortener.local
+        paths:
+          - path: /
+            pathType: Prefix
+

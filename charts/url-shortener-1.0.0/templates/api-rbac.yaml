@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "url-shortener.fullname" . }}-api-sa
+  labels:
+    {{- include "url-shortener.labels" . | nindent 4 }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "url-shortener.fullname" . }}-api-role
+  labels:
+    {{- include "url-shortener.labels" . | nindent 4 }}
+rules:
+  - apiGroups: ["urlshortener.tapsi.ir"]
+    resources: ["shorturls", "shorturls/status"]
+    verbs: ["get", "list", "watch", "update", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "url-shortener.fullname" . }}-api-binding
+  labels:
+    {{- include "url-shortener.labels" . | nindent 4 }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "url-shortener.fullname" . }}-api-sa
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: ClusterRole
+  name: {{ include "url-shortener.fullname" . }}-api-role
+  apiGroup: rbac.authorization.k8s.io 

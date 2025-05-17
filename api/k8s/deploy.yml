@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shorturl-api-deployment
+  labels:
+    app: shorturl-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shorturl-api
+  template:
+    metadata:
+      labels:
+        app: shorturl-api
+    spec:
+      serviceAccountName: shorturl-api-sa
+      containers:
+        - name: shorturl-container
+          image: dibaro/shorturl-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000

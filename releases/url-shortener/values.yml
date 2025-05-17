@@ -1,0 +1,15 @@
+# Global settings
+nameOverride: ""
+fullnameOverride: ""
+
+# Operator settings
+operator:
+  image:
+    pullPolicy: IfNotPresent
+  replicas: 2
+
+# API settings
+api:
+  image:
+    pullPolicy: IfNotPresent
+  replicas: 2
