@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: url-shortener-api
+spec:
+  rules:
+  - host: url-shortener.test.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: url-shortener-api
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+
